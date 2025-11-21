@@ -1,0 +1,16 @@
+FROM golang:1.24-alpine AS builder
+
+RUN apk add --no-cache git
+
+# Установить стабильную версию goose, совместимую с Go 1.22
+RUN go install github.com/pressly/goose/cmd/goose@v2.7.0
+
+FROM alpine:3.19
+
+WORKDIR /migrations
+
+COPY migrations/ /migrations
+
+COPY --from=builder /go/bin/goose /usr/local/bin/goose
+
+ENTRYPOINT ["goose"]

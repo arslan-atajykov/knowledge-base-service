@@ -17,6 +17,10 @@
 
 # Запуск проекта
 
+Клонировать репозиторий
+```
+git clone https://github.com/arslan-atajykov/knowledge-base-service.git
+```
 Полный запуск (backend + PostgreSQL):
 
 ```
@@ -62,7 +66,7 @@ curl http://localhost:8080/questions/1
 4. Добавить ответ к вопросу:
 
 ```
-curl -X POST http://localhost:8080/questions/1/answers   -H "Content-Type: application/json"   -d '{"user_id": "u123", "text": "London"}'
+curl -X POST http://localhost:8080/questions/1/answers/   -H "Content-Type: application/json"   -d '{"user_id": "u123", "text": "London"}'
 ```
 
 5. Получить ответ по ID:

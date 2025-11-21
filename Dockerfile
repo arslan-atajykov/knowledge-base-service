@@ -1,4 +1,4 @@
-# ----------- STAGE 1: builder -----------
+
 FROM golang:1.24 AS builder
 
 WORKDIR /app
@@ -8,18 +8,15 @@ RUN go mod download
 
 COPY . .
 
-RUN CGO_ENABLED=0 GOOS=linux go build -o server ./cmd/app/main.go
+
+RUN CGO_ENABLED=0 GOOS=linux go build -o server ./cmd/app
 
 
 FROM alpine:3.19
 
 WORKDIR /app
 
-RUN apk add --no-cache postgresql-client
-
 COPY --from=builder /app/server .
-
-COPY migrations ./migrations
 
 EXPOSE 8080
 
