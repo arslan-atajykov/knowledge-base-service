@@ -17,8 +17,6 @@ func main() {
 		log.Fatal(err)
 	}
 
-	dbConn.AutoMigrate(&questions.Question{}, &answers.Answer{})
-
 	qRepo := questions.NewPGRepository(dbConn)
 	aRepo := answers.NewPGRepository(dbConn)
 
