@@ -24,7 +24,7 @@ git clone https://github.com/arslan-atajykov/knowledge-base-service.git
 Полный запуск (backend + PostgreSQL):
 
 ```
-docker-compose up --build
+docker compose up --build
 ```
 
 После запуска сервис доступен по адресу:
