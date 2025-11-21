@@ -35,8 +35,8 @@ func (r *Repository) Create(questionID uint, userID, text string) Answer {
 }
 
 func (r *Repository) Get(id uint) (Answer, error) {
-	r.mu.Lock()
-	defer r.mu.Unlock()
+	r.mu.RLock()
+	defer r.mu.RUnlock()
 
 	a, ok := r.answers[id]
 	if !ok {
@@ -66,4 +66,5 @@ func (r *Repository) GetByQuestion(questionID uint) []Answer {
 			result = append(result, a)
 		}
 	}
+	return result
 }
