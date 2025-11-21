@@ -22,7 +22,7 @@ services:
   app:
     build: .
     container_name: kb_app
-    depends_git on:
+    depends_on:
       postgres:
         condition: service_healthy
     environment:
