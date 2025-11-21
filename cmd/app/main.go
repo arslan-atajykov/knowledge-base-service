@@ -1,18 +1,28 @@
 package main
 
 import (
-	"knowledge-base-service/internal/api"
 	"log"
 	"net/http"
+
+	"knowledge-base-service/internal/answers"
+	"knowledge-base-service/internal/api"
+	"knowledge-base-service/internal/questions"
 )
 
 func main() {
-	router := api.Router()
 
-	host_add := ":8080"
-	log.Printf("включение HTTP сервера на %s\n", host_add)
+	qRepo := questions.NewRepository()
+	aRepo := answers.NewRepository()
 
-	if err := http.ListenAndServe(host_add, router); err != nil {
-		log.Fatalf("сервер не запустился: %v", err)
+	qService := questions.NewService(qRepo)
+	aService := answers.NewService(aRepo)
+
+	router := api.NewRouter(qService, aService)
+
+	host := ":8080"
+	log.Printf("HTTP сервер запущен на %s", host)
+
+	if err := http.ListenAndServe(host, router); err != nil {
+		log.Fatalf("Ошибка запуска сервера: %v", err)
 	}
 }

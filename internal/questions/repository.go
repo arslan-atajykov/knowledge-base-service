@@ -34,7 +34,7 @@ func (r *Repository) Create(text string) Question {
 
 func (r *Repository) GetAll() []Question {
 	r.mu.RLock()
-	defer r.mu.Unlock()
+	defer r.mu.RUnlock()
 
 	results := make([]Question, 0, len(r.questions))
 
@@ -44,7 +44,7 @@ func (r *Repository) GetAll() []Question {
 	return results
 }
 
-func (r *Repository) GetID(id uint) (Question, error) {
+func (r *Repository) Get(id uint) (Question, error) {
 	r.mu.RLock()
 	defer r.mu.RUnlock()
 	q, ok := r.questions[id]

@@ -17,17 +17,17 @@ func NewService(r QuestionRepo) *Service {
 }
 
 func (s *Service) Create(text string) (Question, error) {
-	if len(text) < 2 {
+	if len(text) < 1 {
 		return Question{}, errors.New("текст очень короткий")
 	}
 	return s.repo.Create(text), nil
 }
 
 func (s *Service) GetAll() []Question {
-	return s.GetAll()
+	return s.repo.GetAll()
 }
 
-func (s *Service) GetID(id uint) (Question, error) {
+func (s *Service) GetByID(id uint) (Question, error) {
 	return s.repo.Get(id)
 }
 
