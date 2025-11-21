@@ -132,7 +132,11 @@ func (h *QHandler) Delete(w http.ResponseWriter, r *http.Request, id uint) {
 		return
 	}
 
-	w.WriteHeader(http.StatusNoContent)
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(map[string]string{
+		"сообщение": "Вопрос и все ответы к этому вопросу удалены",
+	})
 }
 
 func (h *QHandler) CreateAnswer(w http.ResponseWriter, r *http.Request, questionID uint) {
